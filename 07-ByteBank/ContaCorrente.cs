@@ -1,30 +1,21 @@
-﻿namespace _07_ByteBank
+﻿using System;
+
+namespace _07_ByteBank
 {
     public class ContaCorrente
     {
+        //Propriedades da classe Conta Corrente
         public Cliente Titular { get; set; }
+
+        public static double TaxaDeOperacao { get; private set; }
 
         public static int TotalDeContasCriadas { get; private set; }
 
        
-        private int _agencia;
-        public int Agencia
-        {
-            get
-            {
-                return _agencia;
-            }
-            set
-            {
-                if (value <= 0)
-                {
-                    return;
-                }
+        public int Agencia{ get; }
 
-                _agencia = value;
-            }
-        }
-        public int Numero { get; set; }
+        public int Numero { get; }
+
 
         private double _saldo;
 
@@ -45,13 +36,35 @@
             }
         }
 
+        //Construtor da classe conta corrente
         public ContaCorrente(int agencia, int numero)
         {
+            //Exceções
+            if(agencia <= 0 )
+            {                
+                ArgumentException excecao = new ArgumentException("A agência deve ser maior que 0.", nameof(agencia));
+                
+                throw excecao;
+            }
+
+            if (numero <= 0)
+            {
+                ArgumentException excecao = new ArgumentException("O número da conta deve ser maior que 0.", nameof(numero));
+
+                throw excecao;
+            }
+
+            //Propriedades do construtor da classe conta corrente
             Agencia = agencia;
             Numero = numero;
 
+            //métodos da classe conta corrente
+            TaxaDeOperacao = 30 / TotalDeContasCriadas;
+
             TotalDeContasCriadas++;
         }
+
+        //Funções da classe conta corrente
         public bool Sacar(double valor)
         {
             if (_saldo < valor)

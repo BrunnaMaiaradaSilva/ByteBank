@@ -6,12 +6,15 @@ namespace _07_ByteBank
     {
         static void Main(string[] args)
         {
-
-            ContaCorrente conta = new ContaCorrente(1004, 78549);
-
-            ContaCorrente contaDaBrunna = new ContaCorrente(5664, 100458);
-
-            Console.WriteLine(ContaCorrente.TotalDeContasCriadas);
+            try
+            {
+                ContaCorrente contaTeste = new ContaCorrente(0, 0);
+            }
+            catch (ArgumentException e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.ParamName);
+            }
 
             Console.ReadLine();
 
